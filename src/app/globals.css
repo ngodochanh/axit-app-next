@@ -2,26 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@font-face {
+  font-family: myriadPro;
+  src: url(../../font/Myriad-Pro-Regular.ttf) format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@font-face {
+  font-family: myriadProLight;
+  src: url(../../font/MyriadPro-Light.otf) format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font-myriad-pro {
+  font-family: myriadPro;
+}
+
+.font-myriad-pro-light {
+  font-family: myriadProLight;
+}
+
+@layer utilities {
+  .btn_line {
+    @apply border-white border-2 w-[135px] h-[42px];
   }
-}
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  .text_describe {
+    @apply text-desc text-justify;
+  }
+
+  .text_title {
+    @apply text-center font-bold text-black text-xl;
+  }
+
+  .line {
+    @apply relative after:absolute after:w-[64px] after:h-[2px] after:left-[50%] after:translate-x-[-50%] md:after:translate-x-[0];
+  }
+
+  .round {
+    @apply border-primary border-2 rounded-full relative;
+  }
+
+  .round_child {
+    @apply absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%];
+  }
+
+  .s_layout {
+    @apply p-[10px] pt-[83px] pb-[69px] sm:px-[22px];
+  }
 }
