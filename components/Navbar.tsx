@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { NAV_LINKS } from '../constants';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 function Navbar() {
   const [navbar, setNavbar] = useState(false);
@@ -11,8 +12,27 @@ function Navbar() {
     setNavbar(!navbar);
   };
 
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      // * Chuyển đối tượng event.target thành Element
+      const targetElement = event.target as Element;
+      // Kiểm tra xem click có nằm trong phạm vi của menu hay không
+      if (navbar && !targetElement.closest('.js-navbar-menu')) {
+        setNavbar(false);
+      }
+    };
+
+    // * Thêm event listener cho sự kiện click trên cả trang
+    document.addEventListener('click', handleOutsideClick);
+
+    // * Cleanup: Loại bỏ event listener khi component unmount
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [navbar]);
+
   return (
-    <div className="w-full bg-black">
+    <div className="js-navbar-menu w-full bg-black">
       <nav className="flex justify-between px-[10px] py-[22px] sm:p-[22px] max-w-[1146px] mx-auto relative">
         <Link href="/" className="my-auto">
           <Image
